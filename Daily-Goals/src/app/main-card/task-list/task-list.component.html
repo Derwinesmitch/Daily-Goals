@@ -1,0 +1,9 @@
+<div class="mt-5 flex items-center justify-between p-2">
+  <div *ngFor="let task of tasks">
+    <div class="flex items-center justify-center gap-2">
+      <app-checkbutton></app-checkbutton>
+      <app-tasklistitem [task]="task"></app-tasklistitem>
+    </div>
+    <app-deletebutton></app-deletebutton><app-editbutton></app-editbutton>
+  </div>
+</div>
