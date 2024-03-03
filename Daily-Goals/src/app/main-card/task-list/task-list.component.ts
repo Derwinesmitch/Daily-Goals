@@ -1,27 +1,28 @@
 import { Component, Input } from '@angular/core';
 import { TasklistitemComponent } from './tastklistitem/tastklistitem.component';
 import { CheckbuttonComponent } from '../../buttons/checkbutton/checkbutton.component';
-import { DeletebuttonComponent } from '../../buttons/deletebutton/deletebutton.component';
-import { EditbuttonComponent } from '../../buttons/editbutton/editbutton.component';
+
 import { NgFor } from '@angular/common';
 import { Task } from '../task.model';
+import { ButtonsComponent } from '../../buttons/buttons.component';
 @Component({
   selector: 'app-task-list',
   standalone: true,
   imports: [
     TasklistitemComponent,
     CheckbuttonComponent,
-    DeletebuttonComponent,
-    EditbuttonComponent,
     NgFor,
+    ButtonsComponent,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css',
 })
 export class TaskListComponent {
   @Input() tasks: Task[] = [];
-
-  constructor() {
-    this.tasks = [{ info: 'task 1' }, { info: 'task 2' }];
+  deleteTask(task: Task) {
+    const index = this.tasks.indexOf(task);
+    if (index !== -1) {
+      this.tasks.splice(index, 1);
+    }
   }
 }
