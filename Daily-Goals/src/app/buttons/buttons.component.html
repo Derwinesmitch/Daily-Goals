@@ -1,1 +1,35 @@
-<p>buttons works!</p>
+<div class="flex flex-wrap">
+  <div class="w-full">
+    <div class="relative inline-flex align-middle w-full">
+      <button
+        class="text-black font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 bg-blueGray-700 active:bg-blueGray-800"
+        type="button"
+        (click)="toggleDropdown($event)"
+        #btnDropdownRef
+      >
+        ...
+      </button>
+    </div>
+  </div>
+</div>
+<div class="z-50" style="min-width: 12rem" #popoverDropdownRef>
+  <div
+    class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+    style="min-width: 12rem"
+    [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
+  >
+    <a
+      href="#pablo"
+      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+    >
+      Edit
+    </a>
+    <a
+      href="#pablo"
+      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+      (click)="deleteTask()"
+    >
+      Delete
+    </a>
+  </div>
+</div>
