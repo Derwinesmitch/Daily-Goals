@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { createPopper } from '@popperjs/core';
 import { NgClass } from '@angular/common';
+import { Task } from '../main-card/task.model';
 
 @Component({
   selector: 'app-buttons',
@@ -18,11 +19,14 @@ import { NgClass } from '@angular/common';
 })
 export class ButtonsComponent implements AfterViewInit {
   dropdownPopoverShow = false;
+  editMode = false;
   @ViewChild('btnDropdownRef', { static: false }) btnDropdownRef!: ElementRef;
   @ViewChild('popoverDropdownRef', { static: false })
   popoverDropdownRef!: ElementRef;
   @Output()
   deleteClicked = new EventEmitter<void>();
+  editClicked = new EventEmitter<void>();
+
   ngAfterViewInit() {
     createPopper(
       this.btnDropdownRef.nativeElement,
@@ -43,5 +47,14 @@ export class ButtonsComponent implements AfterViewInit {
 
   deleteTask() {
     this.deleteClicked.emit();
+  }
+
+  editTask() {
+    this.editClicked.emit();
+    this.editMode = true;
+  }
+
+  saveTask(task: Task) {
+    this.editMode = false;
   }
 }
