@@ -5,6 +5,10 @@
   >
     <app-checkbutton></app-checkbutton>
     <app-tasklistitem [task]="task"></app-tasklistitem>
-    <app-buttons (deleteClicked)="deleteTask(task)"> </app-buttons>
+    <app-buttons
+      (deleteClicked)="deleteTask(task)"
+      (editClicked)="editTask(task)"
+    >
+    </app-buttons>
   </div>
 </div>

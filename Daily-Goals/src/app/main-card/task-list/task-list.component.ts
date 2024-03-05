@@ -25,4 +25,8 @@ export class TaskListComponent {
       this.tasks.splice(index, 1);
     }
   }
+
+  editTask(task: Task) {
+    console.log('edit task', task);
+  }
 }
