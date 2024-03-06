@@ -9,23 +9,27 @@ import {
 import { createPopper } from '@popperjs/core';
 import { NgClass } from '@angular/common';
 import { Task } from '../main-card/task.model';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-buttons',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, CommonModule, FormsModule],
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.css',
 })
 export class ButtonsComponent implements AfterViewInit {
   dropdownPopoverShow = false;
   editMode = false;
+  editedTaskInfo: string = '';
   @ViewChild('btnDropdownRef', { static: false }) btnDropdownRef!: ElementRef;
   @ViewChild('popoverDropdownRef', { static: false })
   popoverDropdownRef!: ElementRef;
   @Output()
   deleteClicked = new EventEmitter<void>();
-  editClicked = new EventEmitter<void>();
+  @Output()
+  editClicked = new EventEmitter<string>();
 
   ngAfterViewInit() {
     createPopper(
@@ -49,12 +53,13 @@ export class ButtonsComponent implements AfterViewInit {
     this.deleteClicked.emit();
   }
 
-  editTask() {
-    this.editClicked.emit();
+  enterEditMode() {
     this.editMode = true;
+    this.editedTaskInfo = '';
   }
 
-  saveTask(task: Task) {
+  saveTask() {
     this.editMode = false;
+    this.editClicked.emit(this.editedTaskInfo);
   }
 }
