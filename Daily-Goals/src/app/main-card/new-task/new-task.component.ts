@@ -17,7 +17,7 @@ export class NewTaskComponent {
   @Output() taskAdded = new EventEmitter<Task>();
   onAddTask() {
     console.log('adding a new task');
-    const newTask = new Task(this.taskMessage);
+    const newTask = new Task(this.taskMessage, false);
     this.taskAdded.emit(newTask);
     this.taskMessage = '';
   }

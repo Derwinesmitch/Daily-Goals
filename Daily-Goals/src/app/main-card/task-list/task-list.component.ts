@@ -19,6 +19,10 @@ import { ButtonsComponent } from '../../buttons/buttons.component';
 })
 export class TaskListComponent {
   @Input() tasks: Task[] = [];
+  ngOnInit() {
+    console.log('Tasks:', this.tasks);
+  }
+
   deleteTask(task: Task) {
     const index = this.tasks.indexOf(task);
     if (index !== -1) {
@@ -26,7 +30,12 @@ export class TaskListComponent {
     }
   }
 
-  editTask(task: Task) {
+  editTask(task: Task, editedInfo: string) {
+    task.info = editedInfo;
     console.log('edit task', task);
+  }
+
+  updateTaskCheckStatus(task: Task, checked: boolean) {
+    task.checked = checked;
   }
 }

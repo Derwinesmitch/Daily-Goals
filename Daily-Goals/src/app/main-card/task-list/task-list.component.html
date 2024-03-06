@@ -3,11 +3,14 @@
     *ngFor="let task of tasks"
     class="flex flex-row w-full items-center justify-between gap-2"
   >
-    <app-checkbutton></app-checkbutton>
+    <app-checkbutton
+      [task]="task"
+      (checkChanged)="updateTaskCheckStatus(task, $event)"
+    ></app-checkbutton>
     <app-tasklistitem [task]="task"></app-tasklistitem>
     <app-buttons
       (deleteClicked)="deleteTask(task)"
-      (editClicked)="editTask(task)"
+      (editClicked)="editTask(task, $event)"
     >
     </app-buttons>
   </div>
