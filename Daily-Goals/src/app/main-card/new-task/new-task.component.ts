@@ -1,8 +1,8 @@
-import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Task } from '../task.model';
 import { FormsModule } from '@angular/forms';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-new-task',
@@ -13,12 +13,19 @@ import { FormsModule } from '@angular/forms';
 })
 export class NewTaskComponent {
   taskMessage = '';
+  constructor(private db: AngularFireDatabase) {}
+
   private tasks: Task[] = [];
+
   @Output() taskAdded = new EventEmitter<Task>();
   onAddTask() {
-    console.log('adding a new task');
-    const newTask = new Task(this.taskMessage, false);
-    this.taskAdded.emit(newTask);
+    const newTaskId = uuidv4();
+    const newTask: Task = {
+      id: newTaskId,
+      info: this.taskMessage,
+      checked: false,
+    };
+    this.db.list('tasks').push(newTask);
     this.taskMessage = '';
   }
 
@@ -28,7 +35,6 @@ export class NewTaskComponent {
 
   addTask(task: Task) {
     this.tasks.push(task);
-    // this.tasks.push(...this.tasks);
     console.log('task added', task);
   }
 }
