@@ -1,7 +1,7 @@
-<div class="mt-5 flex items-center justify-between p-2 flex-col">
+<div class="flex items-center justify-between flex-col">
   <div
     *ngFor="let task of tasks"
-    class="flex flex-row w-full items-center justify-between gap-2"
+    class="flex flex-row w-full items-center justify-between gap-2 m-1"
   >
     <app-checkbutton
       [task]="task"
@@ -9,6 +9,7 @@
     ></app-checkbutton>
     <app-tasklistitem [task]="task"></app-tasklistitem>
     <app-buttons
+      class="w-4"
       (deleteClicked)="deleteTask(task)"
       (editClicked)="editTask(task, $event)"
     >
