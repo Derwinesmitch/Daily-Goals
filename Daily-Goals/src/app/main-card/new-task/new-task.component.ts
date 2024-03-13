@@ -19,9 +19,7 @@ export class NewTaskComponent {
 
   @Output() taskAdded = new EventEmitter<Task>();
   onAddTask() {
-    const newTaskId = uuidv4();
     const newTask: Task = {
-      id: newTaskId,
       info: this.taskMessage,
       checked: false,
     };
