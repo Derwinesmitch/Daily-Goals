@@ -10,7 +10,8 @@ import { Task } from '../../task.model';
 export class TasklistitemComponent {
   @Input() task!: Task;
 
-  constructor() {
+  constructor() {}
+  ngOnInit(): void {
     console.log('Task:', this.task);
   }
 }
