@@ -11,7 +11,5 @@ export class TasklistitemComponent {
   @Input() task!: Task;
 
   constructor() {}
-  ngOnInit(): void {
-    console.log('Task:', this.task);
-  }
+  ngOnInit(): void {}
 }

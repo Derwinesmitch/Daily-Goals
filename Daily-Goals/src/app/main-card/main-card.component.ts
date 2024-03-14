@@ -14,7 +14,6 @@ export class MainCardComponent {
   tasks: Task[] = [];
 
   onTaskAdded(task: Task) {
-    console.log('task added', task);
     this.tasks.push(task);
   }
 }
