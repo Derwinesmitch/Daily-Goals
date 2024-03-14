@@ -1,8 +1,10 @@
 <div>
-  <div class="">
+  <form #taskForm="ngForm" (ngSubmit)="onAddTask(taskForm)" class="">
     <div class="relative h-10 w-full flex">
       <input
         [(ngModel)]="taskMessage"
+        name="taskMessage"
+        #taskMessageInput="ngModel"
         class="peer h-full w-3/4 rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
         placeholder=" "
         required
@@ -15,14 +17,27 @@
       </label>
       <div class="w-1/4 flex justify-end">
         <div class="w-3/4 h-full flex items-center justify-end">
-          <span
+          <button
+            type="submit"
             class="addButton w-100 material-symbols-rounded text-brand-500 dark:text-white cursor-pointer"
-            (click)="onAddTask()"
+            [disabled]="taskForm.invalid"
           >
             check_circle
-          </span>
+          </button>
         </div>
       </div>
     </div>
-  </div>
+    <div
+      *ngIf="
+        taskMessageInput.invalid &&
+        (taskMessageInput.dirty || taskMessageInput.touched)
+      "
+      class="text-red-500 text-xs mt-1"
+    >
+      <div *ngIf="taskMessageInput.errors?.['required']">Task is required.</div>
+      <div *ngIf="taskMessageInput.errors?.['minlength']">
+        Task must be at least 4 characters long.
+      </div>
+    </div>
+  </form>
 </div>
