@@ -29,13 +29,11 @@ export class TaskListComponent {
       .list<Task>('tasks')
       .valueChanges()
       .subscribe((tasks) => {
-        console.log('Tasks received from the database:', tasks);
         this.tasks = tasks;
       });
   }
 
   deleteTask(task: Task) {
-    console.log('Deleting task:', task);
     this.db
       .list<Task>('tasks', (ref) => ref.orderByChild('info').equalTo(task.info))
       .snapshotChanges()
@@ -62,12 +60,25 @@ export class TaskListComponent {
   }
 
   editTask(task: Task, editedInfo: string) {
+    this.deleteTask(task);
     task.info = editedInfo;
-    this.db.object(`tasks/${task.info}`).update(task);
-    console.log('edit task', task);
+    const newTask = { ...task };
+
+    this.db
+      .object(`tasks/${newTask.info}`)
+      .set(newTask)
+      .then(() => {})
+      .catch((error) => {});
   }
 
   updateTaskCheckStatus(task: Task, checked: boolean) {
+    this.deleteTask(task);
+
     task.checked = checked;
+    this.db
+      .list('tasks')
+      .push(task)
+      .then(() => {})
+      .catch((error) => {});
   }
 }
